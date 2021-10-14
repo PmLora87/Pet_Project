@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Welcome {{user.first_name}}!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/new/pet" class="btn btn-primary">Add New Pet</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+    </nav>
+    <div class="col-8 mx-auto">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Pet Type</th>
+                    <th>Pet Name</th>
+                    <th>Breed</th>
+                    <th>Age</th>
+                    <th>Food Diet</th>
+                    <th>Vaccination Records</th>
+                    <th>Health Conditions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pet in pets %}
+                    <tr>
+                        <td>
+                            {%- if not pet.image -%}
+                            <img src="/static/images/shadow.png" alt="shadow pet" width="50" height="50">
+                            {% else %}
+                            <img src="{{pet.image}}" alt="pet image" width="50" height="50">
+                            {% endif %}
+                        </td>
+                        <td>{{pet.pet_type}}</td>
+                        <td>{{pet.name}}</td>
+                        <td>{{pet.breed}}</td>
+                        <td>{{pet.age}}</td>
+                        <td>{{pet.diet}}</td>
+                        <td>{{pet.vaccinations}}</td>
+                        <td>{{pet.conditions}}</td>
+                        <td>
+                            {% if pet.user_id == session.user_id %}
+                            <br>
+                            <a href="/edit/pet/{{pet.id}}">Edit</a>
+                            <br>
+                            <a href="/destroy/pet/{{pet.id}}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

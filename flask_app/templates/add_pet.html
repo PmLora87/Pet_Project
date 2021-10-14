@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Pet</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Welcome {{user.first_name}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+
+    </nav>
+    <form action="/create/pet" method="post" class="col-11 p-4 my-4 bg-dark text-light mx-auto" enctype="multipart/form-data">
+        <h2 class="text-primary">Add a New Pet</h2>
+        {% with messages = get_flashed_messages(category_filter=['pet']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Flash AHHHHHHH!!!!</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="d-flex justify-content-between col-9">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="pet_type">Pet Type:</label>
+                    <input type="text" name="pet_type" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Pet Name:</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="breed">Breed:</label>
+                    <input type="text" name="breed" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" name="age" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="diet">Food Diet:</label>
+                    <textarea name="diet" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="vaccinations">Vaccinations:</label>
+                    <fieldset>
+                        <div class="form-check ">
+                            <input class="form-check-input" name="vaccinations" type="checkbox" id="Rabies" value="Rabies">
+                            <label class="form-check-label" for="Rabies">Rabies</label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" name="vaccinations" type="checkbox" id="Bordetella" value="Bordetella">
+                            <label class="form-check-label" for="Bordetella">Bordetella</label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" name="vaccinations" type="checkbox" id="Lyme/Lepto" value="Lyme/Lepto">
+                            <label class="form-check-label" for="Lyme/Lepto">Lyme/Lepto</label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input"name="vaccinations" type="checkbox" id="Feline Distemper" value="Feline Distemper">
+                            <label class="form-check-label" for="Feline Distemper">Feline Distemper</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label for="conditions">Health Conditions:</label>
+                    <textarea type="text" name="conditions" class="form-control"></textarea>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label for="date_made">Date Made:</label>
+                    <input type="date" name="date_made" class="form-control">
+                </div>
+                <br/>
+                <div>
+                    <label for='image'>Pet Image:</label>
+                    <input name='image' type="file" class="btn btn-primary" />
+                </div>
+                <br/>
+                <div>
+                    <input type="submit" value="Add Pet" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
